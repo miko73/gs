@@ -1,0 +1,45 @@
+# Virtuální prostředí
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# PyInstaller
+*.manifest
+
+# Testy / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Prostředí / tajemství
+.env
+*.key
+*.json.credentials
+
+# Google service account klíče
+speech-test-*.json
+*-service-account.json
+credentials.json
+service_account.json
+
+# OS
+Thumbs.db
+desktop.ini

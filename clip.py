@@ -11,7 +11,8 @@ from google.cloud import texttospeech
 # pc.copy(text1)
 
 
-# set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\micha\Projects\google_speech\speech-test-300122-d4f7f5f35fc7.json
+# set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\KočandrleMichal\Projects\speech-test-300122-d4f7f5f35fc7.json
+
 # import pyperclip as pc
 from playsound import playsound
 import os, sys
