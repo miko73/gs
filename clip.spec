@@ -1,37 +1,40 @@
 # -*- mode: python ; coding: utf-8 -*-
+#
+# Build:  .\.venv\Scripts\python.exe -m PyInstaller clip.spec --noconfirm
+# Vysledek: dist\clip.exe  (service account JSON se kopiruje vedle nej rucne)
 
-block_cipher = None
+a = Analysis(
+    ['clip.py'],
+    pathex=[],
+    binaries=[],
+    datas=[],
+    # grpc a google.auth si cast modulu nacitaji dynamicky, PyInstaller je sam nenajde
+    hiddenimports=[
+        'google.cloud.texttospeech',
+        'google.auth.transport.requests',
+        'grpc',
+    ],
+    hookspath=[],
+    runtime_hooks=[],
+    # nepouzivane knihovny - zbytecne by nafoukly vystup
+    excludes=['tkinter', 'numpy', 'pandas', 'matplotlib', 'PIL', 'scipy'],
+    noarchive=False,
+)
 
+pyz = PYZ(a.pure)
 
-a = Analysis(['clip.py'],
-             pathex=['/home/michal-kocanrdle/Python/gs'],
-             binaries=[],
-             datas=[],
-             hiddenimports=[],
-             hookspath=[],
-             runtime_hooks=[],
-             excludes=[],
-             win_no_prefer_redirects=False,
-             win_private_assemblies=False,
-             cipher=block_cipher,
-             noarchive=False)
-pyz = PYZ(a.pure, a.zipped_data,
-             cipher=block_cipher)
-exe = EXE(pyz,
-          a.scripts,
-          [],
-          exclude_binaries=True,
-          name='clip',
-          debug=False,
-          bootloader_ignore_signals=False,
-          strip=False,
-          upx=True,
-          console=True )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               upx_exclude=[],
-               name='clip')
+exe = EXE(
+    pyz,
+    a.scripts,
+    a.binaries,
+    a.datas,
+    [],
+    name='clip',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
+    console=True,
+)

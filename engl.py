@@ -13,7 +13,7 @@ from google.cloud import texttospeech
 
 # set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\micha\Projects\google_speech\speech-test-300122-d4f7f5f35fc7.json
 # import pyperclip as pc
-from playsound import playsound
+from playsound3 import playsound
 import os, sys
 
 #from get_data import get_url_data
@@ -28,11 +28,14 @@ else:
 	file_base='clipboard'
 
 
+# Vyber hlasu. Seznam vsech dostupnych: python list_voices.py en-US
+LANGUAGE_CODE = "en-US"
+VOICE_NAME = "en-US-Chirp3-HD-Charon"   # muzsky; zensky napr. en-US-Chirp3-HD-Kore
+
 client = texttospeech.TextToSpeechClient()
 
 voice = texttospeech.VoiceSelectionParams(
-    language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.SSML_VOICE_GENDER_UNSPECIFIED
-    # language_code="cs-CZ", ssml_gender=texttospeech.SsmlVoiceGender.SSML_VOICE_GENDER_UNSPECIFIED
+    language_code=LANGUAGE_CODE, name=VOICE_NAME
 )
 
 # Select the type of audio file you want returned

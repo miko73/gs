@@ -14,7 +14,7 @@ from google.cloud import texttospeech
 # set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\KočandrleMichal\Projects\speech-test-300122-d4f7f5f35fc7.json
 
 # import pyperclip as pc
-from playsound import playsound
+from playsound3 import playsound
 import os, sys
 
 #from get_data import get_url_data
@@ -29,10 +29,34 @@ else:
 	file_base='clipboard'
 
 
+# Vyber hlasu. Seznam vsech dostupnych: python list_voices.py cs-CZ
+# Chirp3-HD = nejnovejsi a nejprirozenejsi rada, Wavenet-B a Standard-B jsou starsi (obe zenske).
+LANGUAGE_CODE = "cs-CZ"
+VOICE_NAME = "cs-CZ-Chirp3-HD-Charon"   # muzsky; zensky napr. cs-CZ-Chirp3-HD-Kore
+
+# Service account klic. Hleda se vedle exe (resp. vedle skriptu),
+# pokud neni nastavena promenna GOOGLE_APPLICATION_CREDENTIALS.
+CREDENTIALS_FILE = 'speech-test-300122-d4f7f5f35fc7.json'
+
+
+def app_dir():
+	"""Adresar s exe (pri behu z PyInstalleru), jinak adresar se skriptem."""
+	if getattr(sys, 'frozen', False):
+		return os.path.dirname(sys.executable)
+	return os.path.dirname(os.path.abspath(__file__))
+
+
+if not os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'):
+	credentials_path = os.path.join(app_dir(), CREDENTIALS_FILE)
+	if not os.path.exists(credentials_path):
+		sys.exit(f'Chybi soubor s klicem: {credentials_path}\n'
+		         f'Zkopiruj ho vedle exe, nebo nastav GOOGLE_APPLICATION_CREDENTIALS.')
+	os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
+
 client = texttospeech.TextToSpeechClient()
 
 voice = texttospeech.VoiceSelectionParams(
-    language_code="cs-CZ", ssml_gender=texttospeech.SsmlVoiceGender.SSML_VOICE_GENDER_UNSPECIFIED
+    language_code=LANGUAGE_CODE, name=VOICE_NAME
 )
 
 # Select the type of audio file you want returned

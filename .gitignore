@@ -40,6 +40,9 @@ speech-test-*.json
 credentials.json
 service_account.json
 
+# Generovany zvuk
+*.mp3
+
 # OS
 Thumbs.db
 desktop.ini

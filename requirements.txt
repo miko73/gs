@@ -1,0 +1,12 @@
+# Skutecne zavislosti TTS vetve (clip.py, engl.py, list_voices.py).
+# Instalace:  .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+#
+# PDF vetev (t2s.py, pdf_extractor.py, get_pdf.py) zde neni - vyzaduje Javu
+# a prepis PyPDF2 -> pypdf. Viz requirement.legacy.txt.
+
+google-cloud-texttospeech
+pyperclip
+playsound3
+
+# Jen pro build exe (nepotrebne za behu):
+# pyinstaller
